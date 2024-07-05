@@ -1,0 +1,5 @@
+@if(isConnected == false){
+<app-login></app-login>
+} @else {
+<button (click)="logout()">Déconnexion</button>
+}

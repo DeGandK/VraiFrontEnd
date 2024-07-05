@@ -1,0 +1,21 @@
+<fieldset class="justify-content-center" *ngIf="currentUser">
+  <legend>{{ currentUser.username }}</legend>
+
+  <div class="d-flex flex-row">
+    <!-- Case 1 : Photo de profil -->
+    <div class="card w-25">
+      <div class="card-body d-flex flex-column align-items-center">
+        <h6>Photo de profil</h6>
+        <img [src]="currentUser.profilePicture" class="rounded" width="100px" />
+      </div>
+    </div>
+
+    <!-- Case 2 : Email -->
+    <div class="card w-25">
+      <div class="card-body">
+        <h6>Email</h6>
+        <p>{{ currentUser.email }}</p>
+      </div>
+    </div>
+  </div>
+</fieldset>
