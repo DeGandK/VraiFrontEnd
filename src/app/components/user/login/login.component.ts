@@ -59,6 +59,7 @@ export class LoginComponent {
         .subscribe({
           next: (response) => {
             console.log('Registration successful');
+            //Recharge ma liste
           },
           error: (error) => {
             console.error('Registration failed', error.error);
