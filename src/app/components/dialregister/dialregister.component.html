@@ -1,0 +1,78 @@
+<p-dialog
+  header="Register User"
+  [(visible)]="displayRegisterDialog"
+  [modal]="true"
+  [responsive]="true"
+  [style]="{ 'max-width': '600px' }"
+>
+  <form #registerForm="ngForm" (ngSubmit)="register()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          [(ngModel)]="registerForm.controls.username.value"
+          required
+        />
+      </div>
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="registerForm.controls.email.value"
+          required
+          email
+        />
+      </div>
+      <div class="p-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="registerForm.controls.password.value"
+          required
+        />
+      </div>
+      <div class="p-field">
+        <label for="passwordConfirmed">Confirm Password</label>
+        <input
+          id="passwordConfirmed"
+          type="password"
+          name="passwordConfirmed"
+          [(ngModel)]="registerForm.controls.passwordConfirmed.value"
+          required
+        />
+      </div>
+      <div class="p-field">
+        <label for="profilePicture">Profile Picture URL</label>
+        <input
+          id="profilePicture"
+          type="text"
+          name="profilePicture"
+          [(ngModel)]="registerForm.controls.profilePicture.value"
+        />
+      </div>
+    </div>
+
+    <div class="p-dialog-footer">
+      <button
+        type="button"
+        pButton
+        icon="pi pi-times"
+        label="Cancel"
+        (click)="hideDialog()"
+      ></button>
+      <button
+        type="submit"
+        pButton
+        icon="pi pi-check"
+        label="Register"
+      ></button>
+    </div>
+  </form>
+</p-dialog>

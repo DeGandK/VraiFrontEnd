@@ -13,6 +13,8 @@ import { ListComponent } from './components/user/list/list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DialregisterComponent } from './components/dialregister/dialregister.component';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UpdateComponent,
     NavbarComponent,
     ListComponent,
+    DialregisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
