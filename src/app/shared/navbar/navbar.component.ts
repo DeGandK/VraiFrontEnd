@@ -12,4 +12,8 @@ export class NavbarComponent {
   navigateToListUsers() {
     this.router.navigate(['/list']);
   }
+
+  navigateToListQuizzes() {
+    this.router.navigate(['/listquiz']);
+  }
 }

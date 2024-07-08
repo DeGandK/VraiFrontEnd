@@ -1,64 +1,86 @@
-<p-dialog
-  header="Register User"
-  [(visible)]="displayRegisterDialog"
-  [modal]="true"
-  [responsive]="true"
-  [style]="{ 'max-width': '600px' }"
->
-  <form #registerForm="ngForm" (ngSubmit)="register()">
+<p-card>
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="p-fluid">
       <div class="p-field">
         <label for="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          name="username"
-          [(ngModel)]="registerForm.controls.username.value"
-          required
-        />
+        <input id="username" type="text" formControlName="username" required />
+        <div
+          *ngIf="
+            f['username'].invalid &&
+            (f['username'].dirty || f['username'].touched)
+          "
+        >
+          <!-- <small class="p-error" *ngIf="f['username'].errors?.required"
+            >Username is required</small
+          > -->
+        </div>
       </div>
       <div class="p-field">
         <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          [(ngModel)]="registerForm.controls.email.value"
-          required
-          email
-        />
+        <input id="email" type="email" formControlName="email" required />
+        <div
+          *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)"
+        >
+          <small class="p-error" *ngIf="!f['email'].valid"
+            >Email is required</small
+          >
+          <small class="p-error" *ngIf="!f['email'].valid"
+            >Invalid email format</small
+          >
+        </div>
       </div>
       <div class="p-field">
         <label for="password">Password</label>
         <input
           id="password"
           type="password"
-          name="password"
-          [(ngModel)]="registerForm.controls.password.value"
+          formControlName="password"
           required
         />
+        <div
+          *ngIf="
+            f['password'].invalid &&
+            (f['password'].dirty || f['password'].touched)
+          "
+        >
+          <small
+            class="p-error"
+            *ngIf="!registerForm.controls['password'].valid"
+            >Password is required</small
+          >
+        </div>
       </div>
       <div class="p-field">
         <label for="passwordConfirmed">Confirm Password</label>
         <input
           id="passwordConfirmed"
           type="password"
-          name="passwordConfirmed"
-          [(ngModel)]="registerForm.controls.passwordConfirmed.value"
+          formControlName="passwordConfirmed"
           required
         />
+        <div
+          *ngIf="
+            f['passwordConfirmed'].invalid &&
+            (f['passwordConfirmed'].dirty || f['passwordConfirmed'].touched)
+          "
+        >
+          <!-- <small class="p-error" *ngIf="f['passwordConfirmed'].errors?.required"
+            >Password confirmation is required</small
+          >
+          <small class="p-error" *ngIf="registerForm.errors?.notMatching"
+            >Passwords do not match</small
+          > -->
+        </div>
       </div>
       <div class="p-field">
         <label for="profilePicture">Profile Picture URL</label>
         <input
           id="profilePicture"
           type="text"
-          name="profilePicture"
-          [(ngModel)]="registerForm.controls.profilePicture.value"
+          formControlName="profilePicture"
         />
       </div>
     </div>
-
     <div class="p-dialog-footer">
       <button
         type="button"
@@ -66,13 +88,15 @@
         icon="pi pi-times"
         label="Cancel"
         (click)="hideDialog()"
+        class="p-button p-button-lg"
       ></button>
       <button
         type="submit"
         pButton
         icon="pi pi-check"
         label="Register"
+        class="p-button p-button-lg"
       ></button>
     </div>
   </form>
-</p-dialog>
+</p-card>

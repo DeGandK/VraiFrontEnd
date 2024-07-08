@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { LoginComponent } from '../user/login/login.component';
-import { User } from '../../models/user.model';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../../services/auth.service';
 import {
@@ -24,14 +22,13 @@ export class DialregisterComponent implements OnInit {
   displayRegisterDialog: boolean = false;
 
   constructor(
-    public dialogService: DialogService,
+    private dialogService: DialogService,
     private messageService: MessageService,
     private authService: AuthService,
-    private fb: FormBuilder // Utilisation du FormBuilder pour construire le formulaire
+    private fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    // Initialisation du formulaire
     this.registerForm = this.fb.group(
       {
         username: ['', Validators.required],
@@ -40,34 +37,36 @@ export class DialregisterComponent implements OnInit {
         passwordConfirmed: ['', Validators.required],
         profilePicture: [''],
       },
-      {
-        validators: this.matchingPasswords('password', 'passwordConfirmed'),
-      }
+      { validators: this.matchingPasswords('password', 'passwordConfirmed') }
     );
   }
 
   show() {
-    this.displayRegisterDialog = true; // Affiche le dialogue
+    this.displayRegisterDialog = true;
   }
 
   register() {
-    console.log(this.registerForm.value);
     if (this.registerForm.valid) {
+      const { username, email, password, profilePicture } =
+        this.registerForm.value;
       this.authService
-        .register(
-          this.registerForm.value.username,
-          this.registerForm.value.email,
-          this.registerForm.value.password,
-          this.registerForm.value.passwordConfirmed,
-          this.registerForm.value.profilePicture
-        )
+        .register(username, email, password, profilePicture)
         .subscribe({
           next: (response) => {
-            console.log('Registration successful');
-            // Rechargez votre liste ou effectuez toute autre action nécessaire après l'enregistrement réussi
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Registration successful',
+            });
+            this.hideDialog();
           },
           error: (error) => {
-            console.error('Registration failed', error.error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Registration failed',
+            });
+            console.error('Registration failed', error);
           },
           complete: () => {
             console.log('Registration process completed');
@@ -75,19 +74,24 @@ export class DialregisterComponent implements OnInit {
         });
     } else {
       console.error('Registration form is invalid');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Please fill out the form correctly',
+      });
     }
   }
 
   matchingPasswords(passwordKey: string, passwordConfirmedKey: string) {
     return (group: AbstractControl): ValidationErrors | null => {
-      let password = group.get(passwordKey)?.value;
-      let confirmPassword = group.get(passwordConfirmedKey)?.value;
+      const password = group.get(passwordKey)?.value;
+      const confirmPassword = group.get(passwordConfirmedKey)?.value;
       return password === confirmPassword ? null : { notMatching: true };
     };
   }
 
   hideDialog() {
-    this.displayRegisterDialog = false; // Cache le dialogue
+    this.displayRegisterDialog = false;
   }
 
   get f() {

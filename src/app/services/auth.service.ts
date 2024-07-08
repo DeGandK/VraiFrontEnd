@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AuthService {
   get isConnected(): boolean {
     return localStorage.getItem('token') != undefined;
   }
-  constructor(private client: HttpClient) {}
+  constructor(private client: HttpClient, private router: Router) {}
 
   login(email: string, password: string) {
     this.client
@@ -30,14 +31,12 @@ export class AuthService {
     username: string,
     email: string,
     password: string,
-    passwordConfirmed: string,
     profilePicture: string
   ): Observable<void> {
     const body = {
       username,
       email,
       password,
-      passwordConfirmed,
       profilePicture,
     };
     return this.client.post<void>(`${this.url}/register`, body);
@@ -46,5 +45,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     this.isConnectedSubject.next(this.isConnected);
+    this.router.navigate(['home']);
   }
 }

@@ -13,8 +13,13 @@ import { ListComponent } from './components/user/list/list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DialregisterComponent } from './components/dialregister/dialregister.component';
 import { DialogModule } from 'primeng/dialog';
+import { DialregisterComponent } from './components/dialregister/dialregister.component';
+import { DetailsquizComponent } from './components/quiz/detailsquiz/detailsquiz.component';
+import { ListquizComponent } from './components/quiz/listquiz/listquiz.component';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { CardModule } from 'primeng/card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,6 +32,8 @@ import { DialogModule } from 'primeng/dialog';
     NavbarComponent,
     ListComponent,
     DialregisterComponent,
+    DetailsquizComponent,
+    ListquizComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,8 +43,11 @@ import { DialogModule } from 'primeng/dialog';
     HttpClientModule,
     NgbModule,
     DialogModule,
+    DynamicDialogModule,
+    CardModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [DialogService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

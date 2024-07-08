@@ -23,17 +23,14 @@
   <button type="submit" class="btn btn-outline-primary">Connexion</button>
 
   <!-- Bouton pour ouvrir le modal d'inscription -->
-  <button
-    type="button"
-    class="btn btn-outline-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#staticBackdrop"
-  >
+  <button type="button" class="btn btn-outline-primary" (click)="showModal()">
+    <!-- data-bs-toggle="modal"
+      data-bs-target="#staticBackdrop" -->
     Pas encore de compte?
   </button>
 </form>
 <!-- Modal -->
-<div
+<!-- <div
   class="modal fade"
   id="staticBackdrop"
   data-bs-backdrop="static"
@@ -57,7 +54,7 @@
       </div>
       <div class="modal-body">
         <!-- Formulaire d'inscription -->
-        <form [formGroup]="registerForm" (ngSubmit)="register()">
+<!-- <form [formGroup]="registerForm" (ngSubmit)="register()">
           <div class="form-group">
             <label for="username">Nom d'utilisateur</label>
             <input
@@ -129,4 +126,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

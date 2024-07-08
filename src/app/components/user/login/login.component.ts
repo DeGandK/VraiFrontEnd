@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DialregisterComponent } from '../../dialregister/dialregister.component';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,11 @@ export class LoginComponent {
   registerForm!: FormGroup;
   submitted = false;
 
-  constructor(private authService: AuthService, private builder: FormBuilder) {
+  constructor(
+    private authService: AuthService,
+    private builder: FormBuilder,
+    private dialService: DialogService
+  ) {
     this.fg = builder.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required]],
@@ -40,8 +46,12 @@ export class LoginComponent {
 
   login() {
     if (this.fg.valid) {
-      this.authService.login(this.fg.value.email, this.fg.value.password);
+      this.authService.login(this.fg.value['email'], this.fg.value['password']);
     }
+  }
+
+  showModal() {
+    this.dialService.open(DialregisterComponent, {});
   }
 
   register() {
@@ -53,7 +63,6 @@ export class LoginComponent {
           this.registerForm.value.username,
           this.registerForm.value.email,
           this.registerForm.value.password,
-          this.registerForm.value.passwordConfirmed,
           this.registerForm.value.profilePicture
         )
         .subscribe({
